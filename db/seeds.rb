@@ -5,3 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+names = [
+  'Naruto Uzumaki',
+  'Sasuke Uchiha',
+  'Sakura Haruno',
+  'Kakashi Hatake',
+  'Boruto Uzumaki',
+  'Sarada Uchiha',
+  'Mitsuki',
+  'Konohamaru Sarutobi'
+]
+
+Contact.create(names.map{|i| {name: i, profile_url: 'https://i.pravatar.cc/300'} })
