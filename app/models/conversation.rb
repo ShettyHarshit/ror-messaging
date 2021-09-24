@@ -3,10 +3,10 @@ class Conversation < ApplicationRecord
   has_many :messages
 
   def last_message
-    messages.last
+    messages.order(:created_at).limit(1)
   end
 
   def recent_messages
-    messages.last(10)
+    messages.order(created_at: :desc).limit(10)
   end
 end
