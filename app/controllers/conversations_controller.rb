@@ -1,7 +1,12 @@
 class ConversationsController < ApplicationController
   def index
     @conversations = Conversation.last(10)
-    render json: @conversations
+    render json: @conversations.as_json(methods: :last_message)
+  end 
+  
+  def show
+    @conversation = Conversation.find(params[:id])
+    render json: @conversation.as_json(methods: :recent_messages)
   end 
 
   def create
