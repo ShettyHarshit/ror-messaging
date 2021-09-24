@@ -8,13 +8,16 @@ class ConversationsController < ApplicationController
   
   def show
     @conversation = @current_contact.conversations.find(params[:id])
-    render json: @conversation.as_json(methods: :recent_messages)
+    render json: @conversation.as_json(methods: [:recent_messages, :participants])
   end 
 
   def create
+    contacts = params[:conversation]
     @conversation = Conversation.new(conversation_params)
+    @conversation.contacts = Contact.find(params[:contact_ids])
+    @conversation.contacts << @current_contact
     if @conversation.save
-      render json: @conversation, status: 200
+      render json: @conversation.as_json(methods: [:recent_messages, :participants]), status: 200
     else
       render json: @conversation.errors, status: :unprocessable_entity
     end
@@ -22,6 +25,6 @@ class ConversationsController < ApplicationController
 
   private
     def conversation_params
-      params.require(:conversation).permit(:title, :subject, contact_ids: [])
+      params.require(:conversation).permit(:title, :contact_ids)
     end
 end

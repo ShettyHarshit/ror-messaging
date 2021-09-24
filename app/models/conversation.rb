@@ -9,4 +9,8 @@ class Conversation < ApplicationRecord
   def recent_messages
     messages.order(created_at: :desc).limit(10)
   end
+
+  def participants 
+    contacts.as_json(only: [:name, :id])
+  end
 end
