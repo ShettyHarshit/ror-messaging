@@ -1,11 +1,13 @@
 class ConversationsController < ApplicationController
+  before_action :check_headers
+
   def index
-    @conversations = Conversation.last(10)
+    @conversations = @current_contact.conversations.last(10)
     render json: @conversations.as_json(methods: :last_message)
   end 
   
   def show
-    @conversation = Conversation.find(params[:id])
+    @conversation = @current_contact.conversations.find(params[:id])
     render json: @conversation.as_json(methods: :recent_messages)
   end 
 
