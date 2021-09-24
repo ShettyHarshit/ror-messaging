@@ -1,11 +1,14 @@
 class MessagesController < ApplicationController
+  before_action :check_headers
+
   def show
     @message = Conversation.find(params[:conversation_id]).messages.find(params[:id])
     render json: @message.as_json(methods: :sender_name)
   end 
 
   def create
-    @message = Message.new(message_params)
+    @message = Conversation.find(params[:conversation_id]).messages.create(message_params)
+    @message.sender_id = @current_contact.id
     if @message.save
       render json: @message, status: 200
     else
@@ -15,7 +18,7 @@ class MessagesController < ApplicationController
 
   private
   def message_params
-    params.require(:message).permit(:content, :conversation_id, :sender_id)
+    params.require(:message).permit(:content)
   end
 
 end
