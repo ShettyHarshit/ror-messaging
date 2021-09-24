@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   def show
     @message = Conversation.find(params[:conversation_id]).messages.find(params[:id])
-    render json: @message.as_json(methods: :sender)
+    render json: @message.as_json(methods: :sender_name)
   end 
 
   def create

@@ -3,11 +3,11 @@ class Conversation < ApplicationRecord
   has_many :messages
 
   def last_message
-    messages.order(:created_at).limit(1)
+    messages.order(:created_at).limit(1).as_json(only: [:id, :content, :sender_id], methods: [:sender_name])
   end
 
   def recent_messages
-    messages.order(created_at: :desc).limit(10)
+    messages.order(created_at: :desc).limit(10).as_json(only: [:id, :content, :sender_id], methods: [:sender_name])
   end
 
   def participants 
