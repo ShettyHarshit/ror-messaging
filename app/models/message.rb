@@ -5,4 +5,8 @@ class Message < ApplicationRecord
   def sender_name
     sender.name
   end
+
+  def contact_ids
+    conversation.contact_ids
+  end
 end
