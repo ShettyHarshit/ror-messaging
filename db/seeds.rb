@@ -17,4 +17,4 @@ names = [
   'Konohamaru Sarutobi'
 ]
 
-Contact.create(names.map{|i| {name: i, profile_url: 'https://i.pravatar.cc/300'} })
+Contact.create(names.map{|i| { name: i } })
