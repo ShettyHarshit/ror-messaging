@@ -6,6 +6,11 @@ class MessagesController < ApplicationController
     render json: @message.as_json(methods: :sender_name)
   end 
 
+  def index
+    @conversation = @current_contact.conversations.find(params[:conversation_id])
+    render json: @conversation.recent_messages
+  end
+
   def create
     @message = Conversation.find(params[:conversation_id]).messages.create(message_params)
     @message.sender_id = @current_contact.id

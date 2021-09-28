@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :conversations, only: [:index, :create, :show] do 
-    resources :messages, only: [:create, :show]
+    resources :messages, only: [:index, :create, :show]
   end
   resources :contacts, only: [:index]
   mount ActionCable.server, at: '/cable'
